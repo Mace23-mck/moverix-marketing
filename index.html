@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVERIX – AI Logistics Exception Handling</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #060d1a;
+            font-family: 'Inter', sans-serif;
+            color: #e8f0fe;
+        }
+
+        .mx-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .mx-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(77,166,255,0.15);
+            flex-wrap: wrap;
+        }
+        .mx-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mx-logo-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+        .mx-logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.04em;
+        }
+        .mx-logo-text span { color: #4da6ff; }
+        .mx-nav-badge {
+            font-size: 12px;
+            background: rgba(77,166,255,0.12);
+            color: #4da6ff;
+            border: 1px solid rgba(77,166,255,0.3);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        /* Hero */
+        .mx-hero {
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+        .mx-eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #4da6ff;
+            background: rgba(77,166,255,0.08);
+            border: 1px solid rgba(77,166,255,0.2);
+            padding: 6px 18px;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+        }
+        .mx-h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+        .mx-h1 span {
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mx-desc {
+            font-size: 1.05rem;
+            color: #8ba0bc;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .mx-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 2rem 0 2rem;
+        }
+        .mx-stat { text-align: center; }
+        .mx-stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4da6ff;
+        }
+        .mx-stat-label {
+            font-size: 0.8rem;
+            color: #5a7a99;
+            margin-top: 4px;
+        }
+
+        /* Sections */
+        .mx-section-label {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #4da6ff;
+            margin-bottom: 0.75rem;
+        }
+        .mx-section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .mx-pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
+        }
+        .mx-pain-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.12);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        .mx-pain-icon {
+            font-size: 28px;
+            margin-bottom: 1rem;
+        }
+        .mx-pain-h {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .mx-pain-p {
+            font-size: 0.85rem;
+            color: #8ba0bc;
+            line-height: 1.5;
+        }
+
+        .mx-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0 3rem;
+        }
+        .mx-step {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.12);
+            border-radius: 14px;
+            padding: 1.2rem;
+        }
+        .mx-step-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: #4da6ff;
+            margin-bottom: 0.6rem;
+        }
+        .mx-step-h {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        .mx-step-p {
+            font-size: 0.8rem;
+            color: #8ba0bc;
+            line-height: 1.5;
+        }
+
+        .mx-market-box {
+            background: rgba(77,166,255,0.04);
+            border-radius: 24px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid rgba(77,166,255,0.1);
+        }
+        .mx-market-nums {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .mx-mnum-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .mx-mnum-label {
+            font-size: 0.8rem;
+            color: #5a7a99;
+            max-width: 140px;
+            margin-top: 4px;
+        }
+
+        /* Waitlist with embedded Google Form */
+        .mx-waitlist {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(77,166,255,0.2);
+            border-radius: 24px;
+            padding: 2rem;
+            margin: 3rem 0 2rem;
+            text-align: center;
+        }
+        .mx-waitlist h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+        }
+        .mx-waitlist p {
+            color: #8ba0bc;
+            margin-bottom: 1.5rem;
+        }
+        .form-iframe {
+            width: 100%;
+            height: 650px;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* Footer + social */
+        .mx-footer {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-top: 1px solid rgba(77,166,255,0.1);
+            margin-top: 2rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .social-links a {
+            color: #8ba0bc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover { color: #4da6ff; }
+        .contact-info {
+            font-size: 0.85rem;
+            color: #5a7a99;
+            margin-top: 1rem;
+        }
+        .contact-info a {
+            color: #4da6ff;
+            text-decoration: none;
+        }
+        hr {
+            border-color: rgba(77,166,255,0.1);
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .form-iframe { height: 550px; }
+        }
+    </style>
+</head>
+<body>
+<div class="mx-wrap">
+
+    <!-- Navigation -->
+    <nav class="mx-nav">
+        <div class="mx-logo">
+            <img class="mx-logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPlSURBVHgB7ZzNatwwEMf/lW1oF0rpoU+gPfYUeg099dRDD4WeekthTz2VnnrowZRT4z3YtkRRvqqV7HhGa3l3nN1BmvlmNPojj/WRAGhpaWlpaWlpaWlpaWn5T1EUhVKq7/v+69PT03d3d3d/PuXn/b+8vb09Ojs7i9fX17P7+/udYRiGh8fHx/F+vx/Pz89HpZRjjLHneZ7X9/3w6enpS6lUenx8fHJ0Qfz3Dw8PIuZ+f39/5rqucDxfXl4+3d/fP1FKjYwxUoQQw8PDw+f9fj+SvhslpRSlVM/zPoUQIoSQjDHK87xxGIZJGUIIH/P19TXkeeM4jnsdg1JKep5nlFJGKSWlUEJpF0S/QVJKUUpJpRSTUimllIj5+Xme5H+VUkRKEUopk1Iiz/P8Wq1WfL/fP9rtdo+u6wpBEPjT2WwmVquVVErFvu9LpRRPp9NRQgjX9/1/K+9/IZ/P5/TxeCw8z5Oj0UhKpVhxXXdSSkmlVMzxPPlwOHRut1viui6tVisp4nmeF4ZhGAnP80R4nid938+u1+s/we/7/rPRiHiex2ezWYLz+XzVajWnlFKJ+7Dv+28mE6nX61KpJBcXF2Q6ncq7uzvZ7/fJcDgkd3d3ZL/fk9VqRYQQxBjDRqNRdHd3J7quy+J2u0WWZZHP5zNWq9WZEOJXjDFRjDFBCPkchBCm67rMtu3YNE1mGAZjTAmGYYR930+EEOHH8/w3o9FItNttZlkWD4KARVEUTqdToVQqTJIkLIqCKaWY53nBcrmMZ7OZqNfrXAjBfd/njUYjCMOQJUnCv2WhlLqM4ziKoijS9/1tHMei1+uJXq8nPp/P4e7ujn7e5OZmNBrR1WrFkiQ56fs+ByAmCIIwSRJer9c8TdPIsizm+35Wq9UKx3Gi3W4Xx3EUURTRtm1CiDAMt91uN8qyTDmOE1uWxWzbjt/v9xFRijRNZRRFLI7jKE1Tob+PMMvzPKSUku/3++zh4eHr+/v7Mtu2E2UUlFKUx+Mxe3l5eQJAarVarI9Tnc/ntwDE/9I4o9HoGgCx6/X6883NzdP19fWTDwDZRqPxFgCyDQCaIAj+7nQ6Hf+v1+udALjVbrd/JUlCn5+fZ7ZtbwAgM02TsiwLAaBdr9d7DABJkqiXpml4eXl5Xq/Xg2azqXW70eFwuHx+fv5Gz/PiruuqHTARQfAdhuHkeR4tiiIfjUaJYRj53d1diqJEy+Vy4TgONU2TbTabbNu2JwCEIoiQML/fvyulqGma5V6vFwBARkRBEJB2u53v93vhOA6rVCoLURS5aZpG+Xz+jlVVpQDQHCCmadKnpyeSJMkHHLW0tLS0tLS0tLS0/Ff8Bdx+7/mhPmM1AAAAAElFTkSuQmCC" alt="MOVERIX logo">
+            <span class="mx-logo-text">MOVERI<span>X</span></span>
+        </div>
+        <span class="mx-nav-badge">Early Access Open</span>
+    </nav>
+
+    <!-- Hero -->
+    <section class="mx-hero">
+        <span class="mx-eyebrow">AI · Logistics Technology · Africa</span>
+        <h1 class="mx-h1">Freight Exceptions,<br><span>Resolved Autonomously</span></h1>
+        <p class="mx-desc">
+            Moverix is an AI agent that sits between your TMS, email, and chat — detecting, classifying, and resolving freight exceptions automatically.<br>
+            Detention claims, missing PODs, address changes, rate disputes – all handled in seconds, not hours.
+        </p>
+    </section>
+
+    <!-- Key stats -->
+    <div class="mx-stats">
+        <div class="mx-stat"><div class="mx-stat-num">$1.5B</div><div class="mx-stat-label">Market Size (2024)</div></div>
+        <div class="mx-stat"><div class="mx-stat-num">28.7%</div><div class="mx-stat-label">Annual Growth</div></div>
+        <div class="mx-stat"><div class="mx-stat-num">$14B</div><div class="mx-stat-label">Projected by 2033</div></div>
+        <div class="mx-stat"><div class="mx-stat-num">80%</div><div class="mx-stat-label">Exceptions Auto-Resolved</div></div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="mx-section-label">The Problem</div>
+    <h2 class="mx-section-title">Your team is losing hours every day</h2>
+    <div class="mx-pain-grid">
+        <div class="mx-pain-card">
+            <div class="mx-pain-icon">📧</div>
+            <div class="mx-pain-h">Manual back-and-forth</div>
+            <div class="mx-pain-p">Hours spent emailing carriers and shippers to resolve delays, disputes, and missing documents.</div>
+        </div>
+        <div class="mx-pain-card">
+            <div class="mx-pain-icon">💰</div>
+            <div class="mx-pain-h">Rate disputes pile up</div>
+            <div class="mx-pain-p">Accessorial charges and rate discrepancies sit unresolved, costing money and straining relationships.</div>
+        </div>
+        <div class="mx-pain-card">
+            <div class="mx-pain-icon">📱</div>
+            <div class="mx-pain-h">Fragmented systems</div>
+            <div class="mx-pain-p">TMS, email, WhatsApp – no single place to see and act on exceptions in real time.</div>
+        </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="mx-section-label">How It Works</div>
+    <h2 class="mx-section-title">One agent. End‑to‑end resolution.</h2>
+    <div class="mx-steps">
+        <div class="mx-step"><div class="mx-step-num">01</div><div class="mx-step-h">Detect</div><div class="mx-step-p">Listens to email, ELD events, TMS pings.</div></div>
+        <div class="mx-step"><div class="mx-step-num">02</div><div class="mx-step-h">Classify</div><div class="mx-step-p">NLP categories: delay, missing doc, rate dispute, etc.</div></div>
+        <div class="mx-step"><div class="mx-step-num">03</div><div class="mx-step-h">Gather Context</div><div class="mx-step-p">Contract rates, facility hours, driver location, history.</div></div>
+        <div class="mx-step"><div class="mx-step-num">04</div><div class="mx-step-h">Decide & Execute</div><div class="mx-step-p">Auto‑approves routine cases or escalates with proposed settlements.</div></div>
+    </div>
+
+    <!-- Market Opportunity -->
+    <div class="mx-market-box">
+        <div class="mx-section-label">Market Opportunity</div>
+        <h2 class="mx-section-title" style="margin-bottom:0.5rem;">Built for African logistics operators</h2>
+        <p style="color:#8ba0bc; margin-bottom:1rem;">Starting in East Africa — where the pain is real and the tools don't exist yet</p>
+        <div class="mx-market-nums">
+            <div><div class="mx-mnum-val">35+</div><div class="mx-mnum-label">Major 3PLs in East Africa</div></div>
+            <div><div class="mx-mnum-val">$2B+</div><div class="mx-mnum-label">East Africa Logistics Market</div></div>
+            <div><div class="mx-mnum-val">0</div><div class="mx-mnum-label">Autonomous exception agents in region</div></div>
+        </div>
+    </div>
+
+    <!-- Waitlist Section with Embedded Google Form -->
+    <div class="mx-waitlist" id="waitlist">
+        <h2>Join the waitlist</h2>
+        <p>Be the first to know when we launch in East Africa.</p>
+        <iframe class="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfX1u3rjC8ZQkA6B3oE0J7xZQ8p6c5L4nO3mW2vR9yU0iT3qE9/viewform?embedded=true"></iframe>
+    </div>
+
+    <!-- Footer with social & contact -->
+    <footer class="mx-footer">
+        <div class="social-links">
+            <a href="https://instagram.com/moverix.ai" target="_blank">📷 Instagram</a>
+            <a href="https://twitter.com/moverixda" target="_blank">🐦 X (Twitter)</a>
+            <a href="https://facebook.com/MoverixAi" target="_blank">📘 Facebook</a>
+            <a href="mailto:michelle@moverix.co.ke">✉️ Email</a>
+            <a href="https://wa.me/254792286937" target="_blank">💬 WhatsApp</a>
+            <a href="tel:+254792286937">📞 Call</a>
+        </div>
+        <div class="contact-info">
+            © 2025 Moverix · Logistics Technology · AI<br>
+            Built in Nairobi, Kenya 🇰🇪
+        </div>
+    </footer>
+</div>
+</body>
+</html>
