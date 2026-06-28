@@ -222,6 +222,84 @@
             margin-bottom: 1rem;
         }
 
+        /* Dashboard Explanation */
+        .mx-dashboard-explain {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.12);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem auto 3rem;
+            max-width: 900px;
+        }
+        .mx-dashboard-explain h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .mx-dashboard-explain .subhead {
+            color: #8ba0bc;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        .mx-dashboard-explain h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4da6ff;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .mx-dashboard-explain ul {
+            list-style: none;
+            padding: 0;
+        }
+        .mx-dashboard-explain ul li {
+            padding: 0.3rem 0 0.3rem 1.2rem;
+            position: relative;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+        .mx-dashboard-explain ul li::before {
+            content: "•";
+            color: #4da6ff;
+            position: absolute;
+            left: 0;
+        }
+        .mx-dashboard-explain .code-tag {
+            background: rgba(77,166,255,0.12);
+            color: #7ec8ff;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        .mx-dashboard-explain .status-badge {
+            display: inline-block;
+            background: rgba(77,166,255,0.1);
+            color: #4da6ff;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin: 0.1rem 0.2rem;
+        }
+        .mx-dashboard-explain .highlight-box {
+            background: rgba(77,166,255,0.05);
+            border-left: 3px solid #4da6ff;
+            padding: 0.8rem 1.2rem;
+            margin: 0.8rem 0;
+            border-radius: 0 8px 8px 0;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+        }
+        .mx-dashboard-explain .highlight-box strong {
+            color: #e8f0fe;
+        }
+        @media (max-width: 768px) {
+            .mx-dashboard-explain { padding: 1.5rem; }
+        }
+
         .mx-market-box {
             background: rgba(77,166,255,0.04);
             border-radius: 24px;
@@ -383,6 +461,102 @@
                 allowfullscreen 
                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             </iframe>
+        </div>
+    </div>
+
+    <!-- Dashboard Explanation -->
+    <div class="mx-dashboard-explain">
+        <h2>MoveRix Exception Dashboard</h2>
+        <p class="subhead">This dashboard shows how MoveRix AI processes logistics exception emails, classifies them, and routes them for human review when needed. It supports both admin and client views, with filtering, status updates, and mailbox-driven automation for exceptions such as detention, missing PODs, customs holds, delays, fleet issues, and cargo damage.</p>
+
+        <h3>📊 Dashboard Overview</h3>
+        <ul>
+            <li>The dashboard lists all processed logistics exceptions in a table.</li>
+            <li>Each row includes key fields such as: <span class="code-tag">id</span>, <span class="code-tag">customId</span>, <span class="code-tag">loadId</span>, carrier, requested amount, status, email subject, resolution state, human override flag, email, and currency.</li>
+            <li>Example statuses shown in the system include: <span class="status-badge">pending POD</span> <span class="status-badge">needs human</span> <span class="status-badge">approved</span> <span class="status-badge">customs hold</span> <span class="status-badge">issue</span> <span class="status-badge">damage reported</span> <span class="status-badge">delay</span></li>
+        </ul>
+
+        <h3>🔍 Filtering and Search</h3>
+        <ul>
+            <li>The sidebar provides filters for narrowing exceptions.</li>
+            <li>Available filters include: status, currency, date range, and load ID search.</li>
+            <li>Supported currencies shown in the demo are: USD, Kenyan Shillings (KES), EUR, and GBP.</li>
+            <li>The date range filter is used to view exceptions within a specific time window.</li>
+            <li>The load ID search helps locate a specific load when many records exist.</li>
+        </ul>
+
+        <h3>✅ Review Workflow</h3>
+        <ul>
+            <li>Exceptions that require attention appear in the pending review list.</li>
+            <li>Items marked <span class="code-tag">needs human</span> can be manually reviewed.</li>
+            <li>From there, an exception can be: approved or denied.</li>
+            <li>After a decision is made, the status updates in the table and the record moves into the appropriate filtered view.</li>
+            <li>The demo shows an item changing from <span class="code-tag">needs human</span> to <span class="code-tag">approved</span> after clicking the approve action.</li>
+        </ul>
+
+        <h3>⏱️ Detention Exception Example</h3>
+        <ul>
+            <li>A detention email with a 2-hour wait and a rate of <span class="code-tag">$50/hour</span> was automatically approved.</li>
+            <li>The AI assistant handled it because it matched the configured rules.</li>
+            <li>A second detention example with a 5-hour wait was routed to human review.</li>
+            <li>That item was then denied manually, and its status changed from <span class="code-tag">needs human</span> to <span class="code-tag">denied</span>.</li>
+            <li>The system also sends an email notification after the decision is made.</li>
+        </ul>
+
+        <h3>📄 Missing POD Workflow</h3>
+        <ul>
+            <li>A missing POD email was sent to the dedicated mailbox.</li>
+            <li>The system initially marked the case as <span class="code-tag">pending POD</span>.</li>
+            <li>After the proof of delivery was sent to the mailbox, the AI processed it asynchronously.</li>
+            <li>After processing, the status changes from <span class="code-tag">pending POD</span> to <span class="code-tag">POD received</span>.</li>
+            <li>The demo notes that this processing can take about 5 to 10 minutes.</li>
+        </ul>
+
+        <h3>⚙️ Processing Model</h3>
+        <ul>
+            <li>Users send exception emails to a dedicated mailbox.</li>
+            <li>The AI processes the mailbox in batches rather than instantly.</li>
+            <li>After waiting about 5 to 10 minutes, users log in to the dashboard to see updated statuses.</li>
+            <li>This is why the demo does not show immediate live processing for every sample.</li>
+        </ul>
+
+        <h3>👤 Admin vs Client Panel</h3>
+        <ul>
+            <li>The client panel has nearly the same functionality as the admin panel.</li>
+            <li>The main difference is that the admin-only controls are not shown in the client view.</li>
+            <li>Both views support: status filtering, currency filtering, date range filtering, load ID search, all exceptions view, full-screen table view, and download/export actions.</li>
+            <li>The client panel is scoped to the user’s own data.</li>
+        </ul>
+
+        <h3>🔒 Data Privacy and Access</h3>
+        <ul>
+            <li>Each client gets a dedicated mailbox and only sees their own exceptions.</li>
+            <li>Access requires the user’s email and password.</li>
+            <li>The presenter emphasizes that no one else can access the data unless credentials are shared.</li>
+            <li>This keeps each customer’s exception data isolated.</li>
+        </ul>
+
+        <h3>🚀 How to Use MoveRix</h3>
+        <ul>
+            <li>Send all exception emails to the dedicated mailbox.</li>
+            <li>Wait for the AI assistant to process them.</li>
+            <li>Log in to the dashboard to review: pending reviews, approved items, and human-reviewed items.</li>
+            <li>The system is designed to save teams significant time by automating exception handling.</li>
+        </ul>
+
+        <h3>🎯 Trial and Signup</h3>
+        <ul>
+            <li>MoveRix is offered with a one-month free trial.</li>
+            <li>There are no setup fees and no commitment.</li>
+            <li>Interested users can join the waitlist at <span class="code-tag">moverix.co.ke</span>.</li>
+            <li>The waitlist is used to onboard new customers for automation access.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <strong>📹 Watch the full demo:</strong>
+            <a href="https://loom.com/share/93a5110bf0374883adb3a4301cb34732" target="_blank" style="color: #4da6ff; text-decoration: none;">
+                https://loom.com/share/93a5110bf0374883adb3a4301cb34732
+            </a>
         </div>
     </div>
 
