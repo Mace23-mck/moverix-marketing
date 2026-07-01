@@ -328,29 +328,125 @@
             margin-top: 4px;
         }
 
-        /* Waitlist with embedded Google Form */
-        .mx-waitlist {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(77,166,255,0.2);
-            border-radius: 24px;
-            padding: 2rem;
-            margin: 3rem 0 2rem;
+        /* Pricing & Trial Signup Section */
+        .mx-trial-section {
+            max-width: 700px;
+            margin: 3rem auto;
             text-align: center;
         }
-        .mx-waitlist h2 {
+
+        .mx-trial-section h2 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.7rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
-        .mx-waitlist p {
+
+        .mx-trial-section p.sub {
             color: #8ba0bc;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
-        .form-iframe {
+
+        .mx-trial-section .form-container {
+            background: rgba(255,255,255,0.04);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(77,166,255,0.2);
+            text-align: left;
+        }
+
+        .mx-trial-section .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .mx-trial-section .form-row input {
             width: 100%;
-            height: 650px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(77,166,255,0.3);
+            background: rgba(255,255,255,0.06);
+            color: #e8f0fe;
+            box-sizing: border-box;
+        }
+
+        .mx-trial-section input,
+        .mx-trial-section select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(77,166,255,0.3);
+            background: rgba(255,255,255,0.06);
+            color: #e8f0fe;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        .mx-trial-section select {
+            background: #0d1f35;
+        }
+
+        .mx-trial-section .btn-primary {
+            width: 100%;
+            background: #4da6ff;
             border: none;
-            border-radius: 12px;
+            padding: 14px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .mx-trial-section .btn-primary:hover {
+            background: #3b8cdb;
+        }
+
+        .mx-trial-section .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .mx-trial-section .status-msg {
+            margin-top: 12px;
+            color: #8ba0bc;
+            font-size: 0.9rem;
+        }
+
+        .mx-trial-section .calendly-cta {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(77,166,255,0.1);
+        }
+
+        .mx-trial-section .calendly-cta p {
+            color: #8ba0bc;
+            margin-bottom: 0.75rem;
+        }
+
+        .mx-trial-section .calendly-cta a {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid #4da6ff;
+            padding: 10px 28px;
+            border-radius: 8px;
+            color: #4da6ff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .mx-trial-section .calendly-cta a:hover {
+            background: #4da6ff;
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .mx-trial-section .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Footer + social */
@@ -572,11 +668,36 @@
         </div>
     </div>
 
-    <!-- Waitlist Section with Embedded Google Form -->
-    <div class="mx-waitlist" id="waitlist">
-        <h2>Join the waitlist</h2>
-        <p>Be the first to know when we launch in East Africa.</p>
-        <iframe class="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfW0P5saqYbcoeTGkTr0guLblwRgyKI-i3VMFH0zoh8lM6l0Q/viewform?embedded=true" width="100%" height="821" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <!-- Pricing & Trial Signup Section -->
+    <div class="mx-trial-section">
+        <h2>Start your 1‑month free trial</h2>
+        <p class="sub">Choose your plan and our team will set you up within 24 hours.</p>
+
+        <!-- Custom HTML Form -->
+        <form id="trialForm" class="form-container">
+            <div class="form-row">
+                <input type="text" id="name" placeholder="Full name" required>
+                <input type="text" id="company" placeholder="Company" required>
+            </div>
+            <input type="email" id="email" placeholder="Work email address" required>
+            <select id="plan">
+                <option value="Startup (100/month) – $149 / KES 15,000">Startup (100/month) – $149 / KES 15,000</option>
+                <option value="Growth (200/month) – $299 / KES 30,000">Growth (200/month) – $299 / KES 30,000</option>
+                <option value="Enterprise (500/month) – $499 / KES 50,000">Enterprise (500/month) – $499 / KES 50,000</option>
+                <option value="Custom – Contact us">Custom – Contact us</option>
+            </select>
+            <input type="tel" id="phone" placeholder="Phone number (optional)">
+            
+            <button type="submit" id="submitBtn" class="btn-primary">Start my free trial →</button>
+            
+            <div id="formStatus" class="status-msg"></div>
+        </form>
+        
+        <!-- Calendly Call to Action -->
+        <div class="calendly-cta">
+            <p>Prefer to chat first? Book a 10‑minute call with us.</p>
+            <a href="https://calendly.com/michelle-moverix/quick-chat-with-moverix" target="_blank">📅 Book a call</a>
+        </div>
     </div>
 
     <!-- Footer with social & contact -->
@@ -595,5 +716,62 @@
         </div>
     </footer>
 </div>
+
+<script>
+    document.getElementById('trialForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        const statusDiv = document.getElementById('formStatus');
+        
+        // Collect form data
+        const data = {
+            name: document.getElementById('name').value.trim(),
+            company: document.getElementById('company').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            plan: document.getElementById('plan').value,
+            phone: document.getElementById('phone').value.trim()
+        };
+
+        // Simple validation
+        if (!data.name || !data.company || !data.email) {
+            statusDiv.style.color = '#ff6b6b';
+            statusDiv.textContent = '⚠️ Please fill in all required fields.';
+            return;
+        }
+
+        // Disable button, show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        statusDiv.style.color = '#8ba0bc';
+        statusDiv.textContent = '⏳ Sending your request...';
+
+        try {
+            // Your Apps Script URL
+            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCZX41btVJTg5gNRqbrr_JrX7y8NtlXPDEJ7eFMfmtDH_JRXYT2JUYHLbwMOnyR5Vqvw/exec';
+            
+            await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            // Success – show confirmation
+            statusDiv.style.color = '#4da6ff';
+            statusDiv.textContent = '✅ Trial started! We\'ll be in touch within 24 hours.';
+            document.getElementById('trialForm').reset();
+            submitBtn.textContent = 'Done! ✓';
+            
+        } catch (error) {
+            statusDiv.style.color = '#ff6b6b';
+            statusDiv.textContent = '❌ Something went wrong. Please try again or contact us directly.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Start my free trial →';
+            console.error('Form submission error:', error);
+        }
+    });
+</script>
 </body>
 </html>
