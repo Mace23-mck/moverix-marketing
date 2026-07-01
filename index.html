@@ -5,8 +5,324 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOVERIX – AI Logistics Exception Handling</title>
     <style>
-        /* ... (your existing styles) ... */
-        /* Add these new styles for pricing cards */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #060d1a;
+            font-family: 'Inter', sans-serif;
+            color: #e8f0fe;
+        }
+
+        .mx-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .mx-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(77,166,255,0.15);
+            flex-wrap: wrap;
+        }
+        .mx-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mx-logo-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+        .mx-logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.04em;
+        }
+        .mx-logo-text span { color: #4da6ff; }
+        .mx-nav-badge {
+            font-size: 12px;
+            background: rgba(77,166,255,0.12);
+            color: #4da6ff;
+            border: 1px solid rgba(77,166,255,0.3);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        /* Hero */
+        .mx-hero {
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+        .mx-eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #4da6ff;
+            background: rgba(77,166,255,0.08);
+            border: 1px solid rgba(77,166,255,0.2);
+            padding: 6px 18px;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+        }
+        .mx-h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mx-desc {
+            font-size: 1.05rem;
+            color: #8ba0bc;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .mx-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 2rem 0 2rem;
+        }
+        .mx-stat { text-align: center; }
+        .mx-stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mx-stat-label {
+            font-size: 0.8rem;
+            color: #5a7a99;
+            margin-top: 4px;
+        }
+
+        /* Sections */
+        .mx-section-label {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #4da6ff;
+            margin-bottom: 0.75rem;
+        }
+        .mx-section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .mx-pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
+        }
+        .mx-pain-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.12);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        .mx-pain-icon {
+            font-size: 28px;
+            margin-bottom: 1rem;
+        }
+        .mx-pain-h {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e8f0fe;
+            margin-bottom: 0.5rem;
+        }
+        .mx-pain-p {
+            font-size: 0.85rem;
+            color: #8ba0bc;
+            line-height: 1.5;
+        }
+
+        .mx-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0 3rem;
+        }
+        .mx-step {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.12);
+            border-radius: 14px;
+            padding: 1.2rem;
+        }
+        .mx-step-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: #4da6ff;
+            margin-bottom: 0.6rem;
+        }
+        .mx-step-h {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e8f0fe;
+            margin: 0.5rem 0;
+        }
+        .mx-step-p {
+            font-size: 0.8rem;
+            color: #8ba0bc;
+            line-height: 1.5;
+        }
+
+        /* Video Section */
+        .mx-video {
+            margin: 3rem auto;
+            max-width: 900px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+        .mx-video iframe {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+
+        /* Dashboard Explanation */
+        .mx-dashboard-explain {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.12);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem auto 3rem;
+            max-width: 900px;
+        }
+        .mx-dashboard-explain h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .mx-dashboard-explain .subhead {
+            color: #8ba0bc;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        .mx-dashboard-explain h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4da6ff;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .mx-dashboard-explain ul {
+            list-style: none;
+            padding: 0;
+        }
+        .mx-dashboard-explain ul li {
+            padding: 0.3rem 0 0.3rem 1.2rem;
+            position: relative;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+        .mx-dashboard-explain ul li::before {
+            content: "•";
+            color: #4da6ff;
+            position: absolute;
+            left: 0;
+        }
+        .mx-dashboard-explain .code-tag {
+            background: rgba(77,166,255,0.12);
+            color: #7ec8ff;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        .mx-dashboard-explain .status-badge {
+            display: inline-block;
+            background: rgba(77,166,255,0.1);
+            color: #4da6ff;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin: 0.1rem 0.2rem;
+        }
+        .mx-dashboard-explain .highlight-box {
+            background: rgba(77,166,255,0.05);
+            border-left: 3px solid #4da6ff;
+            padding: 0.8rem 1.2rem;
+            margin: 0.8rem 0;
+            border-radius: 0 8px 8px 0;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+        }
+        .mx-dashboard-explain .highlight-box strong {
+            color: #e8f0fe;
+        }
+        @media (max-width: 768px) {
+            .mx-dashboard-explain { padding: 1.5rem; }
+        }
+
+        .mx-market-box {
+            background: rgba(77,166,255,0.04);
+            border-radius: 24px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid rgba(77,166,255,0.1);
+        }
+        .mx-market-nums {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .mx-mnum-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mx-mnum-label {
+            font-size: 0.8rem;
+            color: #5a7a99;
+            max-width: 140px;
+            margin-top: 4px;
+        }
+
+        /* Pricing */
         .mx-pricing {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -41,7 +357,10 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2rem;
             font-weight: 700;
-            color: #fff;
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         .mx-pricing-card .price-kes {
             font-size: 1rem;
@@ -102,6 +421,146 @@
                 margin-right: auto;
             }
         }
+
+        /* Trial Form */
+        .mx-trial-section {
+            max-width: 700px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+        .mx-trial-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mx-trial-section p.sub {
+            color: #8ba0bc;
+            margin-bottom: 2rem;
+        }
+        .mx-trial-section .form-container {
+            background: rgba(255,255,255,0.04);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(77,166,255,0.2);
+            text-align: left;
+        }
+        .mx-trial-section .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .mx-trial-section .form-row input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(77,166,255,0.3);
+            background: rgba(255,255,255,0.06);
+            color: #e8f0fe;
+            box-sizing: border-box;
+        }
+        .mx-trial-section input,
+        .mx-trial-section select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(77,166,255,0.3);
+            background: rgba(255,255,255,0.06);
+            color: #e8f0fe;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+        .mx-trial-section select {
+            background: #0d1f35;
+        }
+        .mx-trial-section .btn-primary {
+            width: 100%;
+            background: #4da6ff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .mx-trial-section .btn-primary:hover {
+            background: #3b8cdb;
+        }
+        .mx-trial-section .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .mx-trial-section .status-msg {
+            margin-top: 12px;
+            color: #8ba0bc;
+            font-size: 0.9rem;
+        }
+        .mx-trial-section .calendly-cta {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(77,166,255,0.1);
+        }
+        .mx-trial-section .calendly-cta p {
+            color: #8ba0bc;
+            margin-bottom: 0.75rem;
+        }
+        .mx-trial-section .calendly-cta a {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid #4da6ff;
+            padding: 10px 28px;
+            border-radius: 8px;
+            color: #4da6ff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .mx-trial-section .calendly-cta a:hover {
+            background: #4da6ff;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .mx-trial-section .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        .mx-footer {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-top: 1px solid rgba(77,166,255,0.1);
+            margin-top: 2rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .social-links a {
+            color: #8ba0bc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover { color: #4da6ff; }
+        .contact-info {
+            font-size: 0.85rem;
+            color: #5a7a99;
+            margin-top: 1rem;
+        }
+        .contact-info a {
+            color: #4da6ff;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -119,7 +578,7 @@
     <!-- Hero -->
     <section class="mx-hero">
         <span class="mx-eyebrow">AI · Logistics Technology · Africa</span>
-        <h1 class="mx-h1">Freight Exceptions,<br><span>Resolved Autonomously</span></h1>
+        <h1 class="mx-h1">Freight Exceptions,<br>Resolved Autonomously</h1>
         <p class="mx-desc">
             Moverix is an AI agent that sits between your TMS, email, and chat — detecting, classifying, and resolving freight exceptions automatically.<br>
             Detention claims, missing PODs, address changes, rate disputes – all handled in seconds, not hours.
@@ -414,7 +873,6 @@
         const submitBtn = document.getElementById('submitBtn');
         const statusDiv = document.getElementById('formStatus');
         
-        // Collect form data
         const data = {
             name: document.getElementById('name').value.trim(),
             company: document.getElementById('company').value.trim(),
@@ -423,38 +881,29 @@
             phone: document.getElementById('phone').value.trim()
         };
 
-        // Simple validation
         if (!data.name || !data.company || !data.email) {
             statusDiv.style.color = '#ff6b6b';
             statusDiv.textContent = '⚠️ Please fill in all required fields.';
             return;
         }
 
-        // Disable button, show loading state
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting...';
         statusDiv.style.color = '#8ba0bc';
         statusDiv.textContent = '⏳ Sending your request...';
 
         try {
-            // Your Apps Script URL
             const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCZX41btVJTg5gNRqbrr_JrX7y8NtlXPDEJ7eFMfmtDH_JRXYT2JUYHLbwMOnyR5Vqvw/exec';
-            
             await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-
-            // Success – show confirmation
             statusDiv.style.color = '#4da6ff';
             statusDiv.textContent = '✅ Trial started! We\'ll be in touch within 24 hours.';
             document.getElementById('trialForm').reset();
             submitBtn.textContent = 'Done! ✓';
-            
         } catch (error) {
             statusDiv.style.color = '#ff6b6b';
             statusDiv.textContent = '❌ Something went wrong. Please try again or contact us directly.';
