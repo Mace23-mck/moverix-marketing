@@ -566,7 +566,7 @@
             line-height: 1.6;
         }
 
-        /* Pricing (existing) */
+        /* Pricing */
         .mx-pricing {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -649,6 +649,130 @@
         }
         .mx-pricing-card .trial-btn:hover {
             background: #3b8cdb;
+        }
+        .mx-pricing-card.custom-card {
+            border-color: rgba(77,166,255,0.3);
+            background: rgba(77,166,255,0.05);
+        }
+        .mx-pricing-card.custom-card .price-usd {
+            font-size: 1.6rem;
+        }
+        @media (max-width: 600px) {
+            .mx-pricing {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Trial Form */
+        .mx-trial-section {
+            max-width: 700px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+        .mx-trial-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mx-trial-section p.sub {
+            color: #8ba0bc;
+            margin-bottom: 2rem;
+        }
+        .mx-trial-section .form-container {
+            background: rgba(255,255,255,0.04);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(77,166,255,0.2);
+            text-align: left;
+        }
+        .mx-trial-section .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .mx-trial-section .form-row input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(77,166,255,0.3);
+            background: rgba(255,255,255,0.06);
+            color: #e8f0fe;
+            box-sizing: border-box;
+        }
+        .mx-trial-section input,
+        .mx-trial-section select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(77,166,255,0.3);
+            background: rgba(255,255,255,0.06);
+            color: #e8f0fe;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+        .mx-trial-section select {
+            background: #0d1f35;
+        }
+        .mx-trial-section .btn-primary {
+            width: 100%;
+            background: #4da6ff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .mx-trial-section .btn-primary:hover {
+            background: #3b8cdb;
+        }
+        .mx-trial-section .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .mx-trial-section .status-msg {
+            margin-top: 12px;
+            color: #8ba0bc;
+            font-size: 0.9rem;
+        }
+        .mx-trial-section .calendly-cta {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(77,166,255,0.1);
+        }
+        .mx-trial-section .calendly-cta p {
+            color: #8ba0bc;
+            margin-bottom: 0.75rem;
+        }
+        .mx-trial-section .calendly-cta a {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid #4da6ff;
+            padding: 10px 28px;
+            border-radius: 8px;
+            color: #4da6ff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .mx-trial-section .calendly-cta a:hover {
+            background: #4da6ff;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .mx-trial-section .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* FAQ */
@@ -1190,7 +1314,40 @@
         </p>
     </section>
 
-    <!-- FAQ -->
+    <!-- TRIAL SIGNUP SECTION (id="trial") -->
+    <section class="mx-section" id="trial" style="padding-top:0;">
+        <div class="mx-section-label">Start Your Trial</div>
+        <h2 class="mx-section-title">Try MOVERIX Free for 30 Days</h2>
+        <p class="mx-section-sub">No credit card. No commitment. Just results.</p>
+
+        <div class="mx-trial-section">
+            <form id="trialForm" class="form-container">
+                <div class="form-row">
+                    <input type="text" id="name" placeholder="Full name" required>
+                    <input type="text" id="company" placeholder="Company" required>
+                </div>
+                <input type="email" id="email" placeholder="Work email address" required>
+                <select id="plan">
+                    <option value="Startup (100/month) – $149 / KES 15,000">Startup (100/month) – $149 / KES 15,000</option>
+                    <option value="Growth (200/month) – $299 / KES 30,000">Growth (200/month) – $299 / KES 30,000</option>
+                    <option value="Enterprise (500/month) – $499 / KES 50,000">Enterprise (500/month) – $499 / KES 50,000</option>
+                    <option value="Custom – Contact us">Custom – Contact us</option>
+                </select>
+                <input type="tel" id="phone" placeholder="Phone number (optional)">
+
+                <button type="submit" id="submitBtn" class="btn-primary">Start my free trial →</button>
+
+                <div id="formStatus" class="status-msg"></div>
+            </form>
+
+            <div class="calendly-cta">
+                <p>Prefer to chat first? Book a 10‑minute call with us.</p>
+                <a href="https://calendly.com/michelle-moverix/quick-chat-with-moverix" target="_blank">📅 Book a call</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (with Security & Privacy added) -->
     <section class="mx-section">
         <div class="mx-section-label">FAQ</div>
         <h2 class="mx-section-title" style="margin-bottom:1.5rem;">Quick Answers</h2>
@@ -1202,6 +1359,14 @@
             <div class="mx-faq-item">
                 <div class="question" onclick="toggleFAQ(this)">Do I need a credit card for the trial? <span class="arrow">▼</span></div>
                 <div class="answer">No. The 1‑month free trial requires no credit card and no commitment.</div>
+            </div>
+            <div class="mx-faq-item">
+                <div class="question" onclick="toggleFAQ(this)">How is my data protected? <span class="arrow">▼</span></div>
+                <div class="answer">All data is encrypted in transit (TLS 1.2+) and at rest (AES‑256). We are fully compliant with Kenya's Data Protection Act, 2019. We process only the subject and body of exception emails — no attachments, no contact lists. We can also sign a Data Processing Agreement (DPA) to meet your compliance requirements.</div>
+            </div>
+            <div class="mx-faq-item">
+                <div class="question" onclick="toggleFAQ(this)">Do you integrate with KRA eTIMS? <span class="arrow">▼</span></div>
+                <div class="answer">Yes. We are actively exploring integration with KRA eTIMS to enable automatic tax invoice generation and compliance reporting. For enterprise clients, we can accelerate custom integration tailored to your existing invoicing system.</div>
             </div>
             <div class="mx-faq-item">
                 <div class="question" onclick="toggleFAQ(this)">Can I cancel anytime? <span class="arrow">▼</span></div>
@@ -1268,7 +1433,52 @@
             }
         });
     });
-</script>
 
+    // Trial form submission
+    document.getElementById('trialForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        const statusDiv = document.getElementById('formStatus');
+        
+        const data = {
+            name: document.getElementById('name').value.trim(),
+            company: document.getElementById('company').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            plan: document.getElementById('plan').value,
+            phone: document.getElementById('phone').value.trim()
+        };
+
+        if (!data.name || !data.company || !data.email) {
+            statusDiv.style.color = '#ff6b6b';
+            statusDiv.textContent = '⚠️ Please fill in all required fields.';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        statusDiv.style.color = '#8ba0bc';
+        statusDiv.textContent = '⏳ Sending your request...';
+
+        try {
+            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCZX41btVJTg5gNRqbrr_JrX7y8NtlXPDEJ7eFMfmtDH_JRXYT2JUYHLbwMOnyR5Vqvw/exec';
+            await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            statusDiv.style.color = '#4da6ff';
+            statusDiv.textContent = '✅ Trial started! We\'ll be in touch within 24 hours.';
+            document.getElementById('trialForm').reset();
+            submitBtn.textContent = 'Done! ✓';
+        } catch (error) {
+            statusDiv.style.color = '#ff6b6b';
+            statusDiv.textContent = '❌ Something went wrong. Please try again or contact us directly.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Start my free trial →';
+            console.error('Form submission error:', error);
+        }
+    });
+</script>
 </body>
 </html>
