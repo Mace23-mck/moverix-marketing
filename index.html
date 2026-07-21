@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOVERIX – Automation System</title>
+    <title>MOVERIX – Logistics Exception System</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -13,6 +14,7 @@
             background: #060d1a;
             font-family: 'Inter', sans-serif;
             color: #e8f0fe;
+            overflow-x: hidden;
         }
 
         .mx-wrap {
@@ -27,8 +29,13 @@
             align-items: center;
             justify-content: space-between;
             padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(77,166,255,0.15);
+            border-bottom: 1px solid rgba(77,166,255,0.1);
             flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            background: rgba(6,13,26,0.92);
+            backdrop-filter: blur(12px);
+            z-index: 100;
         }
         .mx-logo {
             display: flex;
@@ -50,75 +57,283 @@
         }
         .mx-logo-text span { color: #4da6ff; }
         .mx-nav-badge {
-            font-size: 12px;
+            font-size: 11px;
             background: rgba(77,166,255,0.12);
             color: #4da6ff;
-            border: 1px solid rgba(77,166,255,0.3);
+            border: 1px solid rgba(77,166,255,0.25);
             padding: 4px 14px;
             border-radius: 30px;
             font-weight: 500;
         }
+        .mx-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .mx-nav-btn {
+            background: #4da6ff;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-decoration: none;
+        }
+        .mx-nav-btn:hover {
+            background: #3b8cdb;
+            transform: scale(1.02);
+        }
 
         /* Hero */
         .mx-hero {
-            text-align: center;
-            padding: 4rem 0 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 4rem 0;
+            align-items: center;
+            min-height: 80vh;
         }
-        .mx-eyebrow {
+        .mx-hero-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .mx-hero-badge {
             display: inline-block;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: #4da6ff;
             background: rgba(77,166,255,0.08);
             border: 1px solid rgba(77,166,255,0.2);
-            padding: 6px 18px;
+            padding: 4px 14px;
             border-radius: 30px;
-            margin-bottom: 1.5rem;
+            width: fit-content;
         }
-        .mx-h1 {
+        .mx-hero h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.25rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .mx-hero h1 .highlight {
             background: linear-gradient(90deg, #4da6ff, #7ec8ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .mx-desc {
-            font-size: 1.05rem;
+        .mx-hero h1 .highlight-orange {
+            background: linear-gradient(90deg, #ff8c42, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mx-hero p {
+            font-size: 1.1rem;
             color: #8ba0bc;
             line-height: 1.7;
-            max-width: 700px;
-            margin: 0 auto 2rem;
+            max-width: 480px;
         }
-        .mx-stats {
+        .mx-hero-features {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
             flex-wrap: wrap;
-            padding: 2rem 0 2rem;
+            gap: 0.75rem 1.5rem;
         }
-        .mx-stat { text-align: center; }
-        .mx-stat-num {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
+        .mx-hero-features span {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mx-hero-features span::before {
+            content: "✓";
+            color: #4da6ff;
             font-weight: 700;
-            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
-        .mx-stat-label {
-            font-size: 0.8rem;
-            color: #5a7a99;
-            margin-top: 4px;
+        .mx-hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .mx-btn-primary {
+            background: #4da6ff;
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .mx-btn-primary:hover {
+            background: #3b8cdb;
+            transform: scale(1.02);
+        }
+        .mx-btn-secondary {
+            background: transparent;
+            color: #e8f0fe;
+            border: 1px solid rgba(77,166,255,0.3);
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .mx-btn-secondary:hover {
+            background: rgba(77,166,255,0.05);
+            border-color: #4da6ff;
         }
 
-        /* Sections */
+        /* Hero Right - Living Dashboard */
+        .mx-hero-right {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(77,166,255,0.12);
+            border-radius: 20px;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(77,166,255,0.05);
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .mx-hero-right .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            font-size: 0.8rem;
+            color: #5a7a99;
+        }
+        .mx-hero-right .dashboard-header .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4da6ff;
+            display: inline-block;
+            margin-right: 6px;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .mx-hero-right .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 1.2rem;
+        }
+        .mx-hero-right .stat-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            border: 1px solid rgba(77,166,255,0.06);
+        }
+        .mx-hero-right .stat-card .num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e8f0fe;
+        }
+        .mx-hero-right .stat-card .label {
+            font-size: 0.7rem;
+            color: #5a7a99;
+            margin-top: 2px;
+        }
+        .mx-hero-right .stat-card .num.blue { color: #4da6ff; }
+        .mx-hero-right .stat-card .num.green { color: #4ade80; }
+        .mx-hero-right .stat-card .num.orange { color: #fb923c; }
+
+        .mx-hero-right .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .mx-hero-right .notification-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid #4da6ff;
+            animation: slideIn 0.6s ease-out;
+            transition: transform 0.2s;
+        }
+        .mx-hero-right .notification-item:hover {
+            transform: translateX(4px);
+        }
+        .mx-hero-right .notification-item .icon {
+            font-size: 1.2rem;
+            width: 32px;
+            text-align: center;
+        }
+        .mx-hero-right .notification-item .info {
+            flex: 1;
+        }
+        .mx-hero-right .notification-item .info .title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #e8f0fe;
+        }
+        .mx-hero-right .notification-item .info .sub {
+            font-size: 0.7rem;
+            color: #5a7a99;
+        }
+        .mx-hero-right .notification-item .status-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: rgba(77,166,255,0.12);
+            color: #4da6ff;
+        }
+        .mx-hero-right .notification-item .status-badge.green {
+            background: rgba(74,222,128,0.12);
+            color: #4ade80;
+        }
+        .mx-hero-right .notification-item .status-badge.orange {
+            background: rgba(251,146,60,0.12);
+            color: #fb923c;
+        }
+        .mx-hero-right .notification-item:nth-child(1) { border-left-color: #4da6ff; }
+        .mx-hero-right .notification-item:nth-child(2) { border-left-color: #4ade80; }
+        .mx-hero-right .notification-item:nth-child(3) { border-left-color: #fb923c; }
+        .mx-hero-right .notification-item:nth-child(4) { border-left-color: #4da6ff; }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .mx-hero-right .dashboard-footer {
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: #5a7a99;
+            text-align: center;
+        }
+
+        /* Section Styles */
+        .mx-section {
+            padding: 4rem 0;
+            border-top: 1px solid rgba(77,166,255,0.06);
+        }
         .mx-section-label {
             text-align: center;
             font-size: 11px;
@@ -130,200 +345,228 @@
         }
         .mx-section-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-size: clamp(2rem, 4vw, 2.8rem);
             font-weight: 700;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 0.75rem;
             background: linear-gradient(90deg, #4da6ff, #7ec8ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-
-        .mx-pain-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0 3rem;
-        }
-        .mx-pain-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(77,166,255,0.12);
-            border-radius: 16px;
-            padding: 1.5rem;
-        }
-        .mx-pain-icon {
-            font-size: 28px;
-            margin-bottom: 1rem;
-        }
-        .mx-pain-h {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #e8f0fe;
-            margin-bottom: 0.5rem;
-        }
-        .mx-pain-p {
-            font-size: 0.85rem;
+        .mx-section-sub {
+            text-align: center;
             color: #8ba0bc;
-            line-height: 1.5;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
         }
 
-        .mx-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.2rem;
-            margin: 2rem 0 3rem;
-        }
-        .mx-step {
+        /* Dashboard Section (moved higher) */
+        .mx-dashboard-preview {
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(77,166,255,0.12);
-            border-radius: 14px;
-            padding: 1.2rem;
-        }
-        .mx-step-num {
-            font-size: 11px;
-            font-weight: 700;
-            color: #4da6ff;
-            margin-bottom: 0.6rem;
-        }
-        .mx-step-h {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #e8f0fe;
-            margin: 0.5rem 0;
-        }
-        .mx-step-p {
-            font-size: 0.8rem;
-            color: #8ba0bc;
-            line-height: 1.5;
-        }
-
-        /* Video Section */
-        .mx-video {
-            margin: 3rem auto;
-            max-width: 900px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-        }
-        .mx-video iframe {
-            display: block;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border: none;
-        }
-
-        /* Dashboard Explanation */
-        .mx-dashboard-explain {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(77,166,255,0.12);
+            border: 1px solid rgba(77,166,255,0.08);
             border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2rem auto 3rem;
-            max-width: 900px;
+            padding: 2rem;
+            margin-top: 1.5rem;
         }
-        .mx-dashboard-explain h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.5rem;
+        .mx-dashboard-preview .db-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
         }
-        .mx-dashboard-explain .subhead {
-            color: #8ba0bc;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-        .mx-dashboard-explain h3 {
+        .mx-dashboard-preview .db-header h3 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.1rem;
             font-weight: 600;
-            color: #4da6ff;
-            margin: 1.5rem 0 0.5rem;
-        }
-        .mx-dashboard-explain ul {
-            list-style: none;
-            padding: 0;
-        }
-        .mx-dashboard-explain ul li {
-            padding: 0.3rem 0 0.3rem 1.2rem;
-            position: relative;
-            color: #cbd5e1;
-            font-size: 0.92rem;
-            line-height: 1.6;
-        }
-        .mx-dashboard-explain ul li::before {
-            content: "•";
-            color: #4da6ff;
-            position: absolute;
-            left: 0;
-        }
-        .mx-dashboard-explain .code-tag {
-            background: rgba(77,166,255,0.12);
-            color: #7ec8ff;
-            padding: 0.1rem 0.5rem;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.85rem;
-        }
-        .mx-dashboard-explain .status-badge {
-            display: inline-block;
-            background: rgba(77,166,255,0.1);
-            color: #4da6ff;
-            padding: 0.1rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin: 0.1rem 0.2rem;
-        }
-        .mx-dashboard-explain .highlight-box {
-            background: rgba(77,166,255,0.05);
-            border-left: 3px solid #4da6ff;
-            padding: 0.8rem 1.2rem;
-            margin: 0.8rem 0;
-            border-radius: 0 8px 8px 0;
-            color: #cbd5e1;
-            font-size: 0.92rem;
-        }
-        .mx-dashboard-explain .highlight-box strong {
             color: #e8f0fe;
         }
-        @media (max-width: 768px) {
-            .mx-dashboard-explain { padding: 1.5rem; }
+        .mx-dashboard-preview .db-header .db-date {
+            font-size: 0.8rem;
+            color: #5a7a99;
         }
-
-        .mx-market-box {
-            background: rgba(77,166,255,0.04);
-            border-radius: 24px;
-            padding: 2rem;
-            margin: 2rem 0;
+        .mx-dashboard-preview .db-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .mx-dashboard-preview .db-stat {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 1rem;
             text-align: center;
-            border: 1px solid rgba(77,166,255,0.1);
+            border: 1px solid rgba(77,166,255,0.06);
         }
-        .mx-market-nums {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-        .mx-mnum-val {
+        .mx-dashboard-preview .db-stat .num {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
-        .mx-mnum-label {
-            font-size: 0.8rem;
+        .mx-dashboard-preview .db-stat .num.blue { color: #4da6ff; }
+        .mx-dashboard-preview .db-stat .num.green { color: #4ade80; }
+        .mx-dashboard-preview .db-stat .num.orange { color: #fb923c; }
+        .mx-dashboard-preview .db-stat .num.purple { color: #a78bfa; }
+        .mx-dashboard-preview .db-stat .label {
+            font-size: 0.75rem;
             color: #5a7a99;
-            max-width: 140px;
+            margin-top: 4px;
+        }
+        .mx-dashboard-preview .db-recent {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+        .mx-dashboard-preview .db-recent-item {
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            border: 1px solid rgba(77,166,255,0.04);
+        }
+        .mx-dashboard-preview .db-recent-item .label {
+            color: #cbd5e1;
+        }
+        .mx-dashboard-preview .db-recent-item .status {
+            color: #4ade80;
+            font-weight: 500;
+        }
+        .mx-dashboard-preview .db-recent-item .status.pending {
+            color: #fb923c;
+        }
+
+        /* Workflow Visual */
+        .mx-workflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(77,166,255,0.06);
+        }
+        .mx-workflow-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            min-width: 80px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(77,166,255,0.08);
+            transition: transform 0.2s;
+        }
+        .mx-workflow-item:hover {
+            transform: translateY(-4px);
+        }
+        .mx-workflow-item .icon {
+            font-size: 1.8rem;
+        }
+        .mx-workflow-item .name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .mx-workflow-item.blue { border-color: rgba(77,166,255,0.3); background: rgba(77,166,255,0.04); }
+        .mx-workflow-item.orange { border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.04); }
+        .mx-workflow-item.green { border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.04); }
+        .mx-workflow-arrow {
+            font-size: 1.5rem;
+            color: #4da6ff;
+            opacity: 0.3;
+        }
+        .mx-workflow-label {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5a7a99;
+            margin-top: 0.5rem;
+        }
+
+        /* Trust Section */
+        .mx-trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .mx-trust-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.06);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .mx-trust-card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .mx-trust-card .label {
+            font-size: 0.8rem;
+            color: #8ba0bc;
+            font-weight: 500;
+        }
+        .mx-trust-card .desc {
+            font-size: 0.7rem;
+            color: #5a7a99;
             margin-top: 4px;
         }
 
-        /* Pricing */
+        .mx-founder {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(77,166,255,0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .mx-founder-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4da6ff, #7ec8ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #060d1a;
+            flex-shrink: 0;
+        }
+        .mx-founder-text {
+            flex: 1;
+        }
+        .mx-founder-text h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .mx-founder-text .role {
+            font-size: 0.8rem;
+            color: #4da6ff;
+            margin-bottom: 0.5rem;
+        }
+        .mx-founder-text p {
+            color: #8ba0bc;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing (existing) */
         .mx-pricing {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -407,129 +650,41 @@
         .mx-pricing-card .trial-btn:hover {
             background: #3b8cdb;
         }
-        .mx-pricing-card.custom-card {
-            border-color: rgba(77,166,255,0.3);
-            background: rgba(77,166,255,0.05);
-        }
-        .mx-pricing-card.custom-card .price-usd {
-            font-size: 1.6rem;
-        }
-        @media (max-width: 600px) {
-            .mx-pricing {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
 
-        /* Trial Form */
-        .mx-trial-section {
+        /* FAQ */
+        .mx-faq {
             max-width: 700px;
-            margin: 3rem auto;
-            text-align: center;
+            margin: 0 auto;
         }
-        .mx-trial-section h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.7rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #4da6ff, #7ec8ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .mx-faq-item {
+            border-bottom: 1px solid rgba(77,166,255,0.06);
+            padding: 1.2rem 0;
         }
-        .mx-trial-section p.sub {
-            color: #8ba0bc;
-            margin-bottom: 2rem;
-        }
-        .mx-trial-section .form-container {
-            background: rgba(255,255,255,0.04);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(77,166,255,0.2);
-            text-align: left;
-        }
-        .mx-trial-section .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .mx-trial-section .form-row input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(77,166,255,0.3);
-            background: rgba(255,255,255,0.06);
-            color: #e8f0fe;
-            box-sizing: border-box;
-        }
-        .mx-trial-section input,
-        .mx-trial-section select {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(77,166,255,0.3);
-            background: rgba(255,255,255,0.06);
-            color: #e8f0fe;
-            box-sizing: border-box;
-            margin-bottom: 12px;
-        }
-        .mx-trial-section select {
-            background: #0d1f35;
-        }
-        .mx-trial-section .btn-primary {
-            width: 100%;
-            background: #4da6ff;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            color: #fff;
+        .mx-faq-item .question {
             font-weight: 600;
+            color: #e8f0fe;
             cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 1rem;
-            transition: background 0.2s;
         }
-        .mx-trial-section .btn-primary:hover {
-            background: #3b8cdb;
+        .mx-faq-item .question .arrow {
+            color: #4da6ff;
+            transition: transform 0.2s;
         }
-        .mx-trial-section .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .mx-faq-item .question.open .arrow {
+            transform: rotate(180deg);
         }
-        .mx-trial-section .status-msg {
-            margin-top: 12px;
+        .mx-faq-item .answer {
             color: #8ba0bc;
             font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+            display: none;
         }
-        .mx-trial-section .calendly-cta {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(77,166,255,0.1);
-        }
-        .mx-trial-section .calendly-cta p {
-            color: #8ba0bc;
-            margin-bottom: 0.75rem;
-        }
-        .mx-trial-section .calendly-cta a {
-            display: inline-block;
-            background: transparent;
-            border: 1px solid #4da6ff;
-            padding: 10px 28px;
-            border-radius: 8px;
-            color: #4da6ff;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background 0.2s, color 0.2s;
-        }
-        .mx-trial-section .calendly-cta a:hover {
-            background: #4da6ff;
-            color: #fff;
-        }
-        @media (max-width: 600px) {
-            .mx-trial-section .form-row {
-                grid-template-columns: 1fr;
-            }
+        .mx-faq-item .answer.visible {
+            display: block;
         }
 
         /* Footer */
@@ -568,6 +723,60 @@
             margin-top: 0.5rem;
             line-height: 1.6;
         }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .mx-hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 2rem 0;
+                min-height: auto;
+            }
+            .mx-hero-left p { max-width: 100%; }
+            .mx-hero-features { justify-content: center; }
+            .mx-hero-actions { justify-content: center; }
+            .mx-dashboard-preview .db-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mx-dashboard-preview .db-recent {
+                grid-template-columns: 1fr;
+            }
+            .mx-hero-right .dashboard-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .mx-hero-right .dashboard-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .mx-pricing {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .mx-trust-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .mx-founder {
+                flex-direction: column;
+                text-align: center;
+            }
+            .mx-workflow {
+                flex-direction: column;
+            }
+            .mx-workflow-arrow {
+                transform: rotate(90deg);
+            }
+            .mx-dashboard-preview .db-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .mx-nav {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .mx-nav-actions { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -579,285 +788,446 @@
             <img class="mx-logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAABkCAYAAABhHtZRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAT3SURBVHgB7d1ditwwEMDxrGm70J6mT7On6XO6p7H0ZPu2vU0Xki8CAUMm1o48Gsv/5/2XhTWxNCPP+BcAAAAAAAAAAAAAAAAAgKHg4fzND8vLy0/j8Xh8/O39/Pz8dDweX95fDweHhnXx4h0AAACAd+Dp/Pz8x93d3T/Hn1vH4fBTc3btuLx69+59/gUAAADwAE7Ozs5+PDs7+73/48nJSTUd7xRbnHlBc29p18O7n5/f4XIPAAAAvAOP59/PLy/1mHvz/Gs7PuJCEVd9Wf3/Pld0cT7D9/XtuxcX7+MfAAAAwB+f/f/5ePzN4uLmxWZ85rmuhj7Lx2K9Z+YFzPxZlnFz/mj2/QMAAMCRfPLXo9Fo5t9vXr/Ousfqyp+fneVx/ITdLX5s6kC1Vk/j+NPp9vPx5/h1bDa7n04m8/9Pp9P5HZbz+eTjfJLYVrXyAQAAAKMP+OOPZi7s0ny+NJPVsCkxd+rrdovv3pTbZbPeF5/mcWj2wbw0n/5ZVj3h8N8uvGdLgq3VC7fYA4a90w9CAAAAHjS2k5k7qcb4a85u0V+LWx7frZz0tqlt/YzWcZb5sWXyXK9b7ztvyW6OXTq8X25HvvLk6dP/5n/8ePbs7eXl5Sbj5s1bV18AAABooi17B8xh2x9PlbFbt3j3brt/7mj4vC23rtd1h/12LcpjiR6j3bXJ3llV0mHjzZs3v/zF/FmWCwAAANABMxYbw6flS2O6OHDd7+0d9mYr6w5HsrmmvS21KSsfg41+NuvXlOmrAgAAgB2w4+0hacf8mI0I5jWWSWPGvu3k9//pV8+5U+9pU+/HPvtS/B1+AQAAwM6Z1Vfn1/vTP4b9OauXOKx/fN6wCxN7Rr6jYrZq9OeLfT7++cb8nxuVZ1+qvdtv9sM++1L9e4x+AQAAwAEzq61uz1x1Nkv57czVlxsycbeNZsnbjUanZ8V5jlp2MYc2+zKfjeL4fvt87nAA9iR2XH9rwl4sAADAu2e2p/nC7ozfmJXB4xG1Y/xGDZ9OZpM3Zltz1Tb7cXiT+B03ejn2wwYAAMDNsiuv/CJLJvvVv6z5A0L5aLLqj0cRZTM92R8T9h3gZxr7MAAAAFSY7W3MuAy3T9jrzHbazZbDbjxnY7UAM3duSj3O2cqbzWb/G/5xvxszIwAAAABPmN0XZWes+kjMmCzZ9d8m3T+Tmrv+iue9ppPJGzNm7Pp3V9Z7sgAAAACGx25T0jXssv9OHBvGju+pmmFZ+slnq7B2m7LXHRO2fzYrAwAAAA/GjMmKLm62YyK6+IvMlM16e0ZeVH/Gqt1+xtlxO83MjB25j7+blWVsO6+6rE0OAAAAMFDZOBz17Msjnaxjs1lMZ8VvVnWZWLXbYb+cxcy4bSgAAAAA7wXrrWqyB0smC2/CAgAAAFDx24w0Wf8Yw4YxAAAA4P3CJVcAAADgncLqKwAAAOAdww0OAAAAwDuHFVgAAADANxOgyqMAADxYSURBVODCAgAAAL6ZQFUeBQAAAPAPHHofYlLkM2AAAAAASUVORK5CYII=" alt="MOVERIX logo">
             <span class="mx-logo-text">MOVERI<span>X</span></span>
         </div>
-        <span class="mx-nav-badge">Early Access Open</span>
+        <div class="mx-nav-actions">
+            <span class="mx-nav-badge">Early Access Open</span>
+            <a href="#trial" class="mx-nav-btn">Start Free Trial</a>
+        </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- HERO SECTION -->
     <section class="mx-hero">
-        <span class="mx-eyebrow">Logistics Technology · Africa</span>
-        <h1 class="mx-h1">Freight Exceptions,<br>Resolved Autonomously</h1>
-        <p class="mx-desc">
-            Moverix Automation System sits between your TMS, email, and chat — detecting, classifying, and resolving freight exceptions automatically.<br>
-            Detention claims, missing PODs, address changes, rate disputes – all handled in seconds, not hours.
+        <div class="mx-hero-left">
+            <span class="mx-hero-badge">Logistics Exception System</span>
+            <h1>
+                Every Shipment Exception<br>
+                <span class="highlight-orange">Steals Time.</span>
+            </h1>
+            <p>
+                MOVERIX detects, classifies, and resolves logistics exceptions automatically—so your team can focus on moving freight, not chasing problems.
+            </p>
+            <div class="mx-hero-features">
+                <span>Missing PODs</span>
+                <span>Delivery Delays</span>
+                <span>Customs Holds</span>
+                <span>Rate Disputes</span>
+            </div>
+            <div class="mx-hero-actions">
+                <a href="https://calendly.com/michelle-moverix/quick-chat-with-moverix" target="_blank" class="mx-btn-primary">Book a 20-Min Demo →</a>
+                <a href="https://share.descript.com/view/HpHEpE8vE0K" target="_blank" class="mx-btn-secondary">▶ Watch Overview</a>
+            </div>
+        </div>
+        <div class="mx-hero-right">
+            <div class="dashboard-header">
+                <span><span class="status-dot"></span>Live Updates</span>
+                <span>Today's Operations</span>
+            </div>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="num blue">17</div>
+                    <div class="label">Exceptions Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num green">15</div>
+                    <div class="label">Auto Resolved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num orange">2</div>
+                    <div class="label">Pending Review</div>
+                </div>
+            </div>
+            <div class="notification-list">
+                <div class="notification-item">
+                    <span class="icon">📄</span>
+                    <div class="info">
+                        <div class="title">Missing POD — Shipment #1023</div>
+                        <div class="sub">AI Detected · Resolved</div>
+                    </div>
+                    <span class="status-badge green">Resolved</span>
+                </div>
+                <div class="notification-item">
+                    <span class="icon">🚚</span>
+                    <div class="info">
+                        <div class="title">Delivery Delay — Shipment #983</div>
+                        <div class="sub">Customer Updated</div>
+                    </div>
+                    <span class="status-badge green">Updated</span>
+                </div>
+                <div class="notification-item">
+                    <span class="icon">📦</span>
+                    <div class="info">
+                        <div class="title">Customs Hold — Shipment #721</div>
+                        <div class="sub">Awaiting Documents</div>
+                    </div>
+                    <span class="status-badge orange">Pending</span>
+                </div>
+                <div class="notification-item">
+                    <span class="icon">💰</span>
+                    <div class="info">
+                        <div class="title">Rate Dispute — Shipment #455</div>
+                        <div class="sub">Resolved Automatically</div>
+                    </div>
+                    <span class="status-badge green">Resolved</span>
+                </div>
+            </div>
+            <div class="dashboard-footer">
+                ⏱ Average Resolution: <strong style="color:#4da6ff;">4 minutes</strong>
+            </div>
+        </div>
+    </section>
+
+    <!-- DASHBOARD SECTION (moved higher) -->
+    <section class="mx-section" style="border-top: none; padding-top: 0;">
+        <div class="mx-section-label">See It In Action</div>
+        <h2 class="mx-section-title">Real-Time Visibility. Total Control.</h2>
+        <p class="mx-section-sub">Know every exception. Anytime. Anywhere.</p>
+        <div class="mx-dashboard-preview">
+            <div class="db-header">
+                <h3>📊 Today's Operations</h3>
+                <span class="db-date">Live · Updated 2s ago</span>
+            </div>
+            <div class="db-stats">
+                <div class="db-stat">
+                    <div class="num blue">17</div>
+                    <div class="label">Exceptions Today</div>
+                </div>
+                <div class="db-stat">
+                    <div class="num green">15</div>
+                    <div class="label">Auto Resolved</div>
+                </div>
+                <div class="db-stat">
+                    <div class="num orange">2</div>
+                    <div class="label">Pending Review</div>
+                </div>
+                <div class="db-stat">
+                    <div class="num purple">4m</div>
+                    <div class="label">Avg. Resolution</div>
+                </div>
+            </div>
+            <div class="db-recent">
+                <div class="db-recent-item">
+                    <span class="label">✓ Missing POD — #1023</span>
+                    <span class="status">Resolved</span>
+                </div>
+                <div class="db-recent-item">
+                    <span class="label">✓ Delivery Delay — #983</span>
+                    <span class="status">Updated</span>
+                </div>
+                <div class="db-recent-item">
+                    <span class="label">⚠ Customs Hold — #721</span>
+                    <span class="status pending">Pending</span>
+                </div>
+                <div class="db-recent-item">
+                    <span class="label">✓ Address Change — #614</span>
+                    <span class="status">Resolved</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE PROBLEM / COST OF EXCEPTIONS -->
+    <section class="mx-section">
+        <div class="mx-section-label">The Hidden Cost</div>
+        <h2 class="mx-section-title">One Exception. Thousands in Hidden Costs.</h2>
+        <p class="mx-section-sub">Every delay creates a chain reaction that costs your business time, money, and customers.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.08); border-radius:16px; padding:1.5rem;">
+                <span style="font-size:2rem;">📧</span>
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin:0.5rem 0; color:#e8f0fe;">More Emails</h4>
+                <p style="color:#8ba0bc; font-size:0.9rem;">One delay creates a flood of emails across your entire operation.</p>
+                <div style="margin-top:0.5rem; font-size:0.85rem; color:#5a7a99;">Customer emails: 12 · Driver follow-ups: 7 · Internal updates: 5</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.08); border-radius:16px; padding:1.5rem;">
+                <span style="font-size:2rem;">⏱️</span>
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin:0.5rem 0; color:#e8f0fe;">Lost Time</h4>
+                <p style="color:#8ba0bc; font-size:0.9rem;">Your team spends hours chasing manual exceptions instead of moving freight.</p>
+                <div style="margin-top:0.5rem; font-size:0.85rem; color:#5a7a99;">Avg. 10+ hours/week wasted on manual exception handling.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.08); border-radius:16px; padding:1.5rem;">
+                <span style="font-size:2rem;">💸</span>
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin:0.5rem 0; color:#e8f0fe;">Revenue Leakage</h4>
+                <p style="color:#8ba0bc; font-size:0.9rem;">Unresolved rate disputes and detention claims cost you money every day.</p>
+                <div style="margin-top:0.5rem; font-size:0.85rem; color:#5a7a99;">Average loss: $500+ per unresolved exception.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW MOVERIX WORKS (visual workflow) -->
+    <section class="mx-section">
+        <div class="mx-section-label">How It Works</div>
+        <h2 class="mx-section-title">Detect → Classify → Resolve</h2>
+        <p class="mx-section-sub">One workflow. Every exception.</p>
+
+        <div class="mx-workflow">
+            <div class="mx-workflow-item blue">
+                <span class="icon">📧</span>
+                <span class="name">Email</span>
+            </div>
+            <span class="mx-workflow-arrow">→</span>
+            <div class="mx-workflow-item blue">
+                <span class="icon">💬</span>
+                <span class="name">WhatsApp</span>
+            </div>
+            <span class="mx-workflow-arrow">→</span>
+            <div class="mx-workflow-item blue">
+                <span class="icon">🚛</span>
+                <span class="name">TMS</span>
+            </div>
+            <span class="mx-workflow-arrow">→</span>
+            <div class="mx-workflow-item orange" style="border-color:rgba(251,146,60,0.3); background:rgba(251,146,60,0.04);">
+                <span class="icon">⚡</span>
+                <span class="name">MOVERIX</span>
+            </div>
+            <span class="mx-workflow-arrow">→</span>
+            <div class="mx-workflow-item green" style="border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.04);">
+                <span class="icon">✅</span>
+                <span class="name">Resolved</span>
+            </div>
+        </div>
+        <p style="text-align:center; color:#8ba0bc; font-size:0.95rem; margin-top:0.5rem;">
+            Automatically detected · Classified · Resolved — in seconds.
+        </p>
+        <div style="display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-top:1.5rem;">
+            <div style="text-align:center; font-size:0.8rem; color:#5a7a99;"><span style="color:#4da6ff; font-weight:700;">01</span> Detect</div>
+            <div style="text-align:center; font-size:0.8rem; color:#5a7a99;"><span style="color:#fb923c; font-weight:700;">02</span> Classify</div>
+            <div style="text-align:center; font-size:0.8rem; color:#5a7a99;"><span style="color:#4ade80; font-weight:700;">03</span> Resolve</div>
+            <div style="text-align:center; font-size:0.8rem; color:#5a7a99;"><span style="color:#4da6ff; font-weight:700;">04</span> Update</div>
+        </div>
+    </section>
+
+    <!-- SUPPORTED EXCEPTION TYPES -->
+    <section class="mx-section" style="padding-top:0;">
+        <div class="mx-section-label">What We Handle</div>
+        <h2 class="mx-section-title">Every Exception, Automatically</h2>
+        <p class="mx-section-sub">From detention claims to customs holds — MOVERIX handles it all.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:1rem; margin-top:1rem;">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">📄</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Missing PODs</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">🚚</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Delivery Delays</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">🛃</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Customs Holds</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">💰</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Rate Disputes</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">📍</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Address Changes</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">🚛</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Fleet Issues</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">📦</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Cargo Damage</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:1rem; text-align:center;">
+                <span style="font-size:1.5rem;">⏱️</span>
+                <div style="font-size:0.85rem; color:#e8f0fe; margin-top:0.3rem;">Detention Claims</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="mx-section">
+        <div class="mx-section-label">Benefits</div>
+        <h2 class="mx-section-title">Less Chasing. More Moving.</h2>
+        <p class="mx-section-sub">What happens when exceptions resolve themselves.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1.5rem; margin-top:1rem;">
+            <div style="text-align:center;">
+                <div style="font-size:2rem;">⏱️</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; color:#e8f0fe; margin:0.5rem 0;">80% Faster Resolution</h4>
+                <p style="color:#8ba0bc; font-size:0.85rem;">Exceptions resolved in minutes, not hours.</p>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-size:2rem;">✅</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; color:#e8f0fe; margin:0.5rem 0;">10+ Hours Saved/Week</h4>
+                <p style="color:#8ba0bc; font-size:0.85rem;">Your team stops chasing emails and starts moving freight.</p>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-size:2rem;">📊</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; color:#e8f0fe; margin:0.5rem 0;">Real-Time Visibility</h4>
+                <p style="color:#8ba0bc; font-size:0.85rem;">Know every exception, anytime, anywhere.</p>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-size:2rem;">🤝</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; color:#e8f0fe; margin:0.5rem 0;">Happy Customers</h4>
+                <p style="color:#8ba0bc; font-size:0.85rem;">Fewer delays means better customer relationships.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section class="mx-section" style="padding-top:0;">
+        <div class="mx-section-label">Works With</div>
+        <h2 class="mx-section-title">Integrates With Your Existing Tools</h2>
+        <p class="mx-section-sub">No new workflows. No new software. Just plug and play.</p>
+        <div style="display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap; margin-top:1rem;">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">📧 Email</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">💬 WhatsApp</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">📊 Excel</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">🚛 TMS</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">📍 GPS</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">🔌 API</div>
+        </div>
+    </section>
+
+    <!-- INDUSTRIES SERVED -->
+    <section class="mx-section" style="padding-top:0;">
+        <div class="mx-section-label">Built For</div>
+        <h2 class="mx-section-title">Built for African Logistics Operators</h2>
+        <p class="mx-section-sub">Starting in East Africa — where the pain is real and the tools don't exist yet.</p>
+        <div style="display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap; margin-top:1rem;">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">Freight Forwarders</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">3PLs</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">Manufacturers</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">Retail Distribution</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#8ba0bc;">Transport Companies</div>
+        </div>
+    </section>
+
+    <!-- SECURITY & TRUST -->
+    <section class="mx-section" style="padding-top:0;">
+        <div class="mx-section-label">Security</div>
+        <h2 class="mx-section-title">Enterprise-Grade. Privacy-First.</h2>
+        <p class="mx-section-sub">Your data is encrypted, secure, and hosted on trusted cloud infrastructure.</p>
+        <div style="display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap; margin-top:1rem;">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#4da6ff;">🔒 Encrypted</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#4da6ff;">☁️ Cloud Hosted</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#4da6ff;">📋 DPA Compliant</div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(77,166,255,0.06); border-radius:12px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; color:#4da6ff;">🛡️ SOC2 Ready</div>
+        </div>
+    </section>
+
+    <!-- FOUNDER'S PROMISE -->
+    <section class="mx-section" style="padding-top:0;">
+        <div class="mx-section-label">Founder's Promise</div>
+        <div class="mx-founder">
+            <div class="mx-founder-avatar">M</div>
+            <div class="mx-founder-text">
+                <h3>Michelle Mwangi</h3>
+                <div class="role">Founder, MOVERIX</div>
+                <p>
+                    We built MOVERIX after watching operations teams spend hours chasing emails instead of moving freight.<br><br>
+                    Our mission is simple: <strong style="color:#e8f0fe;">Give logistics teams their time back.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="mx-section">
+        <div class="mx-section-label">Pricing</div>
+        <h2 class="mx-section-title" style="margin-bottom:0.5rem;">Choose the plan that fits your volume</h2>
+        <p style="text-align:center; color:#8ba0bc; font-size:1rem; margin-bottom:1.5rem;">No setup fees. No commitment. 1-month free trial.</p>
+        <div class="mx-pricing">
+            <div class="mx-pricing-card">
+                <div class="plan-name">Startup</div>
+                <div class="exceptions-count">100 exceptions / month</div>
+                <div class="price-usd">$149</div>
+                <div class="price-kes">KES 15,000</div>
+                <div class="price-per-exc">~$1.49 / ~KES 150 per exception</div>
+                <ul class="features">
+                    <li>Auto‑approval for detention</li>
+                    <li>Missing POD handling</li>
+                    <li>Dashboard access</li>
+                    <li>Email support</li>
+                </ul>
+                <a href="#trial" class="trial-btn">Start free trial</a>
+            </div>
+            <div class="mx-pricing-card">
+                <div class="plan-name">Growth</div>
+                <div class="exceptions-count">200 exceptions / month</div>
+                <div class="price-usd">$299</div>
+                <div class="price-kes">KES 30,000</div>
+                <div class="price-per-exc">~$1.49 / ~KES 150 per exception</div>
+                <ul class="features">
+                    <li>Everything in Startup</li>
+                    <li>Priority support</li>
+                    <li>Multi‑currency (USD & KES)</li>
+                    <li>Advanced filters</li>
+                </ul>
+                <a href="#trial" class="trial-btn">Start free trial</a>
+            </div>
+            <div class="mx-pricing-card">
+                <div class="plan-name">Enterprise</div>
+                <div class="exceptions-count">500 exceptions / month</div>
+                <div class="price-usd">$499</div>
+                <div class="price-kes">KES 50,000</div>
+                <div class="price-per-exc">~$0.99 / ~KES 100 per exception</div>
+                <ul class="features">
+                    <li>Everything in Growth</li>
+                    <li>Dedicated account manager</li>
+                    <li>Custom integrations</li>
+                    <li>Bulk exception export</li>
+                </ul>
+                <a href="#trial" class="trial-btn">Start free trial</a>
+            </div>
+            <div class="mx-pricing-card custom-card" style="border-color:rgba(77,166,255,0.3); background:rgba(77,166,255,0.05);">
+                <div class="plan-name">Custom</div>
+                <div class="exceptions-count">Unlimited</div>
+                <div class="price-usd" style="font-size:1.6rem;">Contact us</div>
+                <div class="price-kes" style="opacity:0;">—</div>
+                <div class="price-per-exc">Tailored pricing</div>
+                <ul class="features">
+                    <li>All Enterprise features</li>
+                    <li>Custom SLAs</li>
+                    <li>On‑premise deployment (optional)</li>
+                    <li>24/7 dedicated support</li>
+                </ul>
+                <a href="mailto:michelle@moverix.co.ke" class="trial-btn" style="background:#0d1f35; border:1px solid #4da6ff;">Contact us</a>
+            </div>
+        </div>
+        <p style="text-align:center; color:#5a7a99; font-size:0.9rem; margin-top:-0.5rem;">
+            All plans include a <strong style="color:#4da6ff;">1‑month free trial</strong> – no setup fees, no commitment.
         </p>
     </section>
 
-    <!-- Key stats -->
-    <div class="mx-stats">
-        <div class="mx-stat"><div class="mx-stat-num">$1.5B</div><div class="mx-stat-label">Market Size (2024)</div></div>
-        <div class="mx-stat"><div class="mx-stat-num">28.7%</div><div class="mx-stat-label">Annual Growth</div></div>
-        <div class="mx-stat"><div class="mx-stat-num">$14B</div><div class="mx-stat-label">Projected by 2033</div></div>
-        <div class="mx-stat"><div class="mx-stat-num">80%</div><div class="mx-stat-label">Exceptions Auto-Resolved</div></div>
-    </div>
-
-    <!-- The Problem -->
-    <div class="mx-section-label">The Problem</div>
-    <h2 class="mx-section-title">Your team is losing hours every day</h2>
-    <div class="mx-pain-grid">
-        <div class="mx-pain-card">
-            <div class="mx-pain-icon">📧</div>
-            <div class="mx-pain-h">Manual back-and-forth</div>
-            <div class="mx-pain-p">Hours spent emailing carriers and shippers to resolve delays, disputes, and missing documents.</div>
-        </div>
-        <div class="mx-pain-card">
-            <div class="mx-pain-icon">💰</div>
-            <div class="mx-pain-h">Rate disputes pile up</div>
-            <div class="mx-pain-p">Accessorial charges and rate discrepancies sit unresolved, costing money and straining relationships.</div>
-        </div>
-        <div class="mx-pain-card">
-            <div class="mx-pain-icon">📱</div>
-            <div class="mx-pain-h">Fragmented systems</div>
-            <div class="mx-pain-p">TMS, email, WhatsApp – no single place to see and act on exceptions in real time.</div>
-        </div>
-    </div>
-
-    <!-- How it works -->
-    <div class="mx-section-label">How It Works</div>
-    <h2 class="mx-section-title">One system. End‑to‑end resolution.</h2>
-    <div class="mx-steps">
-        <div class="mx-step"><div class="mx-step-num">01</div><div class="mx-step-h">Detect</div><div class="mx-step-p">Listens to email, ELD events, TMS pings.</div></div>
-        <div class="mx-step"><div class="mx-step-num">02</div><div class="mx-step-h">Classify</div><div class="mx-step-p">NLP categories: delay, missing doc, rate dispute, etc.</div></div>
-        <div class="mx-step"><div class="mx-step-num">03</div><div class="mx-step-h">Gather Context</div><div class="mx-step-p">Contract rates, facility hours, driver location, history.</div></div>
-        <div class="mx-step"><div class="mx-step-num">04</div><div class="mx-step-h">Decide & Execute</div><div class="mx-step-p">Auto‑approves routine cases or escalates with proposed settlements.</div></div>
-    </div>
-
-    <!-- Video Demo Section -->
-    <div class="mx-video">
-        <div style="padding: 0 0 56.25% 0; position: relative;">
-            <iframe 
-                src="https://share.descript.com/embed/HpHEpE8vE0K" 
-                frameborder="0" 
-                webkitallowfullscreen 
-                mozallowfullscreen 
-                allowfullscreen 
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            </iframe>
-        </div>
-    </div>
-
-    <!-- Dashboard Explanation -->
-    <div class="mx-dashboard-explain">
-        <h2>MoveRix Exception Dashboard</h2>
-        <p class="subhead">This dashboard shows how MoveRix Automation System processes logistics exception emails, classifies them, and routes them for human review when needed. It supports both admin and client views, with filtering, status updates, and mailbox-driven automation for exceptions such as detention, missing PODs, customs holds, delays, fleet issues, and cargo damage.</p>
-
-        <h3>📊 Dashboard Overview</h3>
-        <ul>
-            <li>The dashboard lists all processed logistics exceptions in a table.</li>
-            <li>Each row includes key fields such as: <span class="code-tag">id</span>, <span class="code-tag">customId</span>, <span class="code-tag">loadId</span>, carrier, requested amount, status, email subject, resolution state, human override flag, email, and currency.</li>
-            <li>Example statuses shown in the system include: <span class="status-badge">pending POD</span> <span class="status-badge">needs human</span> <span class="status-badge">approved</span> <span class="status-badge">customs hold</span> <span class="status-badge">issue</span> <span class="status-badge">damage reported</span> <span class="status-badge">delay</span></li>
-        </ul>
-
-        <h3>🔍 Filtering and Search</h3>
-        <ul>
-            <li>The sidebar provides filters for narrowing exceptions.</li>
-            <li>Available filters include: status, currency, date range, and load ID search.</li>
-            <li>Supported currencies shown in the demo are: USD, Kenyan Shillings (KES), EUR, and GBP.</li>
-            <li>The date range filter is used to view exceptions within a specific time window.</li>
-            <li>The load ID search helps locate a specific load when many records exist.</li>
-        </ul>
-
-        <h3>✅ Review Workflow</h3>
-        <ul>
-            <li>Exceptions that require attention appear in the pending review list.</li>
-            <li>Items marked <span class="code-tag">needs human</span> can be manually reviewed.</li>
-            <li>From there, an exception can be: approved or denied.</li>
-            <li>After a decision is made, the status updates in the table and the record moves into the appropriate filtered view.</li>
-            <li>The demo shows an item changing from <span class="code-tag">needs human</span> to <span class="code-tag">approved</span> after clicking the approve action.</li>
-        </ul>
-
-        <h3>⏱️ Detention Exception Example</h3>
-        <ul>
-            <li>A detention email with a 2-hour wait and a rate of <span class="code-tag">$50/hour</span> was automatically approved.</li>
-            <li>The Automation System handled it because it matched the configured rules.</li>
-            <li>A second detention example with a 5-hour wait was routed to human review.</li>
-            <li>That item was then denied manually, and its status changed from <span class="code-tag">needs human</span> to <span class="code-tag">denied</span>.</li>
-            <li>The system also sends an email notification after the decision is made.</li>
-        </ul>
-
-        <h3>📄 Missing POD Workflow</h3>
-        <ul>
-            <li>A missing POD email was sent to the dedicated mailbox.</li>
-            <li>The system initially marked the case as <span class="code-tag">pending POD</span>.</li>
-            <li>After the proof of delivery was sent to the mailbox, the Automation System processed it asynchronously.</li>
-            <li>After processing, the status changes from <span class="code-tag">pending POD</span> to <span class="code-tag">POD received</span>.</li>
-            <li>The demo notes that this processing can take about 5 to 10 minutes.</li>
-        </ul>
-
-        <h3>⚙️ Processing Model</h3>
-        <ul>
-            <li>Users send exception emails to a dedicated mailbox.</li>
-            <li>The Automation System processes the mailbox in batches rather than instantly.</li>
-            <li>After waiting about 5 to 10 minutes, users log in to the dashboard to see updated statuses.</li>
-            <li>This is why the demo does not show immediate live processing for every sample.</li>
-        </ul>
-
-        <h3>👤 Admin vs Client Panel</h3>
-        <ul>
-            <li>The client panel has nearly the same functionality as the admin panel.</li>
-            <li>The main difference is that the admin-only controls are not shown in the client view.</li>
-            <li>Both views support: status filtering, currency filtering, date range filtering, load ID search, all exceptions view, full-screen table view, and download/export actions.</li>
-            <li>The client panel is scoped to the user’s own data.</li>
-        </ul>
-
-        <h3>🔒 Data Privacy and Access</h3>
-        <ul>
-            <li>Each client gets a dedicated mailbox and only sees their own exceptions.</li>
-            <li>Access requires the user’s email and password.</li>
-            <li>The presenter emphasizes that no one else can access the data unless credentials are shared.</li>
-            <li>This keeps each customer’s exception data isolated.</li>
-        </ul>
-
-        <h3>🚀 How to Use MoveRix</h3>
-        <ul>
-            <li>Send all exception emails to the dedicated mailbox.</li>
-            <li>Wait for the Automation System to process them.</li>
-            <li>Log in to the dashboard to review: pending reviews, approved items, and human-reviewed items.</li>
-            <li>The system is designed to save teams significant time by automating exception handling.</li>
-        </ul>
-
-        <h3>🎯 Trial and Signup</h3>
-        <ul>
-            <li>MoveRix is offered with a one-month free trial.</li>
-            <li>There are no setup fees and no commitment.</li>
-            <li>Interested users can join the waitlist at <span class="code-tag">moverix.co.ke</span>.</li>
-            <li>The waitlist is used to onboard new customers for automation access.</li>
-        </ul>
-
-        <div class="highlight-box">
-            <strong>📹 Watch the full demo:</strong>
-            <a href="https://share.descript.com/view/HpHEpE8vE0K" target="_blank" style="color: #4da6ff; text-decoration: none;">
-                https://share.descript.com/view/HpHEpE8vE0K
-            </a>
-        </div>
-    </div>
-
-    <!-- Market Opportunity -->
-    <div class="mx-market-box">
-        <div class="mx-section-label">Market Opportunity</div>
-        <h2 class="mx-section-title" style="margin-bottom:0.5rem;">Built for African logistics operators</h2>
-        <p style="color:#8ba0bc; margin-bottom:1rem;">Starting in East Africa — where the pain is real and the tools don't exist yet</p>
-        <div class="mx-market-nums">
-            <div><div class="mx-mnum-val">35+</div><div class="mx-mnum-label">Major 3PLs in East Africa</div></div>
-            <div><div class="mx-mnum-val">$2B+</div><div class="mx-mnum-label">East Africa Logistics Market</div></div>
-            <div><div class="mx-mnum-val">0</div><div class="mx-mnum-label">Autonomous exception systems in region</div></div>
-        </div>
-    </div>
-
-    <!-- Pricing Section -->
-    <div class="mx-section-label">Pricing</div>
-    <h2 class="mx-section-title" style="margin-bottom:1.5rem;">Choose the plan that fits your logistics volume</h2>
-    <div class="mx-pricing">
-        <!-- Startup -->
-        <div class="mx-pricing-card">
-            <div class="plan-name">Startup</div>
-            <div class="exceptions-count">100 exceptions / month</div>
-            <div class="price-usd">$149</div>
-            <div class="price-kes">KES 15,000</div>
-            <div class="price-per-exc">~$1.49 / ~KES 150 per exception</div>
-            <ul class="features">
-                <li>Auto‑approval for detention</li>
-                <li>Missing POD handling</li>
-                <li>Dashboard access</li>
-                <li>Email support</li>
-            </ul>
-            <a href="#trial" class="trial-btn">Start free trial</a>
-        </div>
-
-        <!-- Growth -->
-        <div class="mx-pricing-card">
-            <div class="plan-name">Growth</div>
-            <div class="exceptions-count">200 exceptions / month</div>
-            <div class="price-usd">$299</div>
-            <div class="price-kes">KES 30,000</div>
-            <div class="price-per-exc">~$1.49 / ~KES 150 per exception</div>
-            <ul class="features">
-                <li>Everything in Startup</li>
-                <li>Priority support</li>
-                <li>Multi‑currency (USD & KES)</li>
-                <li>Advanced filters</li>
-            </ul>
-            <a href="#trial" class="trial-btn">Start free trial</a>
-        </div>
-
-        <!-- Enterprise -->
-        <div class="mx-pricing-card">
-            <div class="plan-name">Enterprise</div>
-            <div class="exceptions-count">500 exceptions / month</div>
-            <div class="price-usd">$499</div>
-            <div class="price-kes">KES 50,000</div>
-            <div class="price-per-exc">~$0.99 / ~KES 100 per exception</div>
-            <ul class="features">
-                <li>Everything in Growth</li>
-                <li>Dedicated account manager</li>
-                <li>Custom integrations</li>
-                <li>Bulk exception export</li>
-            </ul>
-            <a href="#trial" class="trial-btn">Start free trial</a>
-        </div>
-
-        <!-- Custom -->
-        <div class="mx-pricing-card custom-card">
-            <div class="plan-name">Custom</div>
-            <div class="exceptions-count">Unlimited</div>
-            <div class="price-usd">Contact us</div>
-            <div class="price-kes" style="opacity:0;">—</div>
-            <div class="price-per-exc">Tailored pricing</div>
-            <ul class="features">
-                <li>All Enterprise features</li>
-                <li>Custom SLAs</li>
-                <li>On‑premise deployment (optional)</li>
-                <li>24/7 dedicated support</li>
-            </ul>
-            <a href="mailto:michelle@moverix.co.ke" class="trial-btn" style="background:#0d1f35; border:1px solid #4da6ff;">Contact us</a>
-        </div>
-    </div>
-    <p style="text-align:center; color:#5a7a99; font-size:0.9rem; margin-top:-0.5rem; margin-bottom:2rem;">
-        All plans include a <strong style="color:#4da6ff;">1‑month free trial</strong> – no setup fees, no commitment.
-    </p>
-
-    <!-- Trial Signup Section (id="trial") -->
-    <div class="mx-trial-section" id="trial">
-        <h2>Start your 1‑month free trial</h2>
-        <p class="sub">Choose your plan and our team will set you up within 24 hours.</p>
-
-        <!-- Custom HTML Form -->
-        <form id="trialForm" class="form-container">
-            <div class="form-row">
-                <input type="text" id="name" placeholder="Full name" required>
-                <input type="text" id="company" placeholder="Company" required>
+    <!-- FAQ -->
+    <section class="mx-section">
+        <div class="mx-section-label">FAQ</div>
+        <h2 class="mx-section-title" style="margin-bottom:1.5rem;">Quick Answers</h2>
+        <div class="mx-faq">
+            <div class="mx-faq-item">
+                <div class="question" onclick="toggleFAQ(this)">How long does it take to set up? <span class="arrow">▼</span></div>
+                <div class="answer">Less than 30 minutes. We connect your dedicated mailbox, and you start forwarding exception emails.</div>
             </div>
-            <input type="email" id="email" placeholder="Work email address" required>
-            <select id="plan">
-                <option value="Startup (100/month) – $149 / KES 15,000">Startup (100/month) – $149 / KES 15,000</option>
-                <option value="Growth (200/month) – $299 / KES 30,000">Growth (200/month) – $299 / KES 30,000</option>
-                <option value="Enterprise (500/month) – $499 / KES 50,000">Enterprise (500/month) – $499 / KES 50,000</option>
-                <option value="Custom – Contact us">Custom – Contact us</option>
-            </select>
-            <input type="tel" id="phone" placeholder="Phone number (optional)">
-            
-            <button type="submit" id="submitBtn" class="btn-primary">Start my free trial →</button>
-            
-            <div id="formStatus" class="status-msg"></div>
-        </form>
-        
-        <!-- Calendly Call to Action -->
-        <div class="calendly-cta">
-            <p>Prefer to chat first? Book a 10‑minute call with us.</p>
-            <a href="https://calendly.com/michelle-moverix/quick-chat-with-moverix" target="_blank">📅 Book a call</a>
+            <div class="mx-faq-item">
+                <div class="question" onclick="toggleFAQ(this)">Do I need a credit card for the trial? <span class="arrow">▼</span></div>
+                <div class="answer">No. The 1‑month free trial requires no credit card and no commitment.</div>
+            </div>
+            <div class="mx-faq-item">
+                <div class="question" onclick="toggleFAQ(this)">Can I cancel anytime? <span class="arrow">▼</span></div>
+                <div class="answer">Yes. Cancel anytime without penalty. No hidden fees.</div>
+            </div>
+            <div class="mx-faq-item">
+                <div class="question" onclick="toggleFAQ(this)">What if I exceed my monthly exceptions? <span class="arrow">▼</span></div>
+                <div class="answer">We'll automatically upgrade you to the next tier or offer a custom plan based on your volume.</div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer with social & contact -->
+    <!-- FINAL CTA -->
+    <section class="mx-section" style="padding:3rem 0 4rem; border-top: 1px solid rgba(77,166,255,0.08);">
+        <div style="text-align:center; max-width:600px; margin:0 auto;">
+            <h2 style="font-family:'Space Grotesk',sans-serif; font-size:clamp(1.8rem,3vw,2.5rem); background:linear-gradient(90deg,#4da6ff,#7ec8ff); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:0.75rem;">Let MOVERIX Handle Your Exceptions.</h2>
+            <p style="color:#8ba0bc; font-size:1.05rem; margin-bottom:1.5rem;">Stop chasing emails. Start moving freight.</p>
+            <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+                <a href="https://calendly.com/michelle-moverix/quick-chat-with-moverix" target="_blank" class="mx-btn-primary" style="padding:16px 40px; font-size:1.1rem;">Book a Demo →</a>
+                <a href="#trial" class="mx-btn-secondary" style="padding:16px 40px; font-size:1.1rem;">Start Free Trial</a>
+            </div>
+            <p style="color:#5a7a99; font-size:0.85rem; margin-top:1rem;">No setup fees · No commitment · 1-month free trial</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="mx-footer">
         <div class="social-links">
             <a href="https://instagram.com/moverix.ai" target="_blank">📷 Instagram</a>
@@ -880,50 +1250,25 @@
 </div>
 
 <script>
-    document.getElementById('trialForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitBtn');
-        const statusDiv = document.getElementById('formStatus');
-        
-        const data = {
-            name: document.getElementById('name').value.trim(),
-            company: document.getElementById('company').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            plan: document.getElementById('plan').value,
-            phone: document.getElementById('phone').value.trim()
-        };
+    // FAQ Toggle
+    function toggleFAQ(element) {
+        const answer = element.nextElementSibling;
+        const isOpen = answer.classList.contains('visible');
+        answer.classList.toggle('visible');
+        element.classList.toggle('open');
+    }
 
-        if (!data.name || !data.company || !data.email) {
-            statusDiv.style.color = '#ff6b6b';
-            statusDiv.textContent = '⚠️ Please fill in all required fields.';
-            return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-        statusDiv.style.color = '#8ba0bc';
-        statusDiv.textContent = '⏳ Sending your request...';
-
-        try {
-            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCZX41btVJTg5gNRqbrr_JrX7y8NtlXPDEJ7eFMfmtDH_JRXYT2JUYHLbwMOnyR5Vqvw/exec';
-            await fetch(APPS_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            statusDiv.style.color = '#4da6ff';
-            statusDiv.textContent = '✅ Trial started! We\'ll be in touch within 24 hours.';
-            document.getElementById('trialForm').reset();
-            submitBtn.textContent = 'Done! ✓';
-        } catch (error) {
-            statusDiv.style.color = '#ff6b6b';
-            statusDiv.textContent = '❌ Something went wrong. Please try again or contact us directly.';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Start my free trial →';
-            console.error('Form submission error:', error);
-        }
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
 </script>
+
 </body>
 </html>
